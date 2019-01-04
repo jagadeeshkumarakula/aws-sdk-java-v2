@@ -30,15 +30,15 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.CompletableFuture;
 import software.amazon.awssdk.annotations.SdkInternalApi;
-import software.amazon.awssdk.awscore.endpointdiscovery.EndpointDiscoveryCacheLoader;
-import software.amazon.awssdk.awscore.endpointdiscovery.EndpointDiscoveryEndpoint;
-import software.amazon.awssdk.awscore.endpointdiscovery.EndpointDiscoveryRequest;
 import software.amazon.awssdk.codegen.emitters.GeneratorTaskParams;
 import software.amazon.awssdk.codegen.model.intermediate.IntermediateModel;
 import software.amazon.awssdk.codegen.model.intermediate.OperationModel;
 import software.amazon.awssdk.codegen.poet.ClassSpec;
 import software.amazon.awssdk.codegen.poet.PoetExtensions;
 import software.amazon.awssdk.codegen.poet.PoetUtils;
+import software.amazon.awssdk.core.endpointdiscovery.EndpointDiscoveryCacheLoader;
+import software.amazon.awssdk.core.endpointdiscovery.EndpointDiscoveryEndpoint;
+import software.amazon.awssdk.core.endpointdiscovery.EndpointDiscoveryRequest;
 
 public class EndpointDiscoveryAsyncCacheLoaderGenerator implements ClassSpec {
 

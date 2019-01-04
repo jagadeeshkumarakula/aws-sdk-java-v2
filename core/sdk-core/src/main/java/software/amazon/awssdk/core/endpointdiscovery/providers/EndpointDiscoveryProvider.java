@@ -13,12 +13,18 @@
  * permissions and limitations under the License.
  */
 
-package software.amazon.awssdk.awscore.endpointdiscovery;
+package software.amazon.awssdk.core.endpointdiscovery.providers;
 
-import java.util.concurrent.CompletableFuture;
 import software.amazon.awssdk.annotations.SdkInternalApi;
 
+@FunctionalInterface
 @SdkInternalApi
-public interface EndpointDiscoveryCacheLoader {
-    CompletableFuture<EndpointDiscoveryEndpoint> discoverEndpoint(EndpointDiscoveryRequest endpointDiscoveryRequest);
+public interface EndpointDiscoveryProvider {
+
+    /**
+     * Returns whether or not endpoint discovery is enabled.
+     *
+     * @return whether endpoint discovery is enabled.
+     */
+    boolean resolveEndpointDiscovery();
 }

@@ -13,14 +13,17 @@
  * permissions and limitations under the License.
  */
 
-package software.amazon.awssdk.awscore.endpointdiscovery;
+package software.amazon.awssdk.core.endpointdiscovery;
 
 import java.net.URI;
 import java.time.Instant;
 import software.amazon.awssdk.annotations.SdkInternalApi;
+import software.amazon.awssdk.utils.builder.CopyableBuilder;
+import software.amazon.awssdk.utils.builder.ToCopyableBuilder;
 
 @SdkInternalApi
-public class EndpointDiscoveryEndpoint {
+public final class EndpointDiscoveryEndpoint implements
+                                             ToCopyableBuilder<EndpointDiscoveryEndpoint.Builder, EndpointDiscoveryEndpoint> {
 
     private final URI endpoint;
     private final Instant expirationTime;
@@ -46,7 +49,7 @@ public class EndpointDiscoveryEndpoint {
         return builder().endpoint(endpoint).expirationTime(expirationTime);
     }
 
-    public interface Builder {
+    public interface Builder extends CopyableBuilder<Builder, EndpointDiscoveryEndpoint> {
 
         Builder endpoint(URI endpoint);
 
@@ -78,13 +81,13 @@ public class EndpointDiscoveryEndpoint {
             return this;
         }
 
+        public void setExpirationTime(Instant expirationTime) {
+            expirationTime(expirationTime);
+        }
+
         @Override
         public EndpointDiscoveryEndpoint build() {
             return new EndpointDiscoveryEndpoint(this);
-        }
-
-        public void setExpirationTime(Instant expirationTime) {
-            expirationTime(expirationTime);
         }
     }
 }

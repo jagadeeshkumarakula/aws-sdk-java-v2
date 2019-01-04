@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package software.amazon.awssdk.awscore.endpointdiscovery;
+package software.amazon.awssdk.core.endpointdiscovery;
 
 import java.util.Map;
 import java.util.Optional;

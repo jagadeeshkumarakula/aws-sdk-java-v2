@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-package software.amazon.awssdk.awscore.endpointdiscovery.providers;
+package software.amazon.awssdk.core.endpointdiscovery.providers;
 
 import software.amazon.awssdk.annotations.SdkPublicApi;
 import software.amazon.awssdk.core.SdkSystemSetting;

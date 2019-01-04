@@ -80,5 +80,4 @@ public class PoetClientFunctionalTests {
                 GeneratorTaskParams.create(ClientTestModels.endpointDiscoveryModels(), "sources/", "tests/"));
         assertThat(asyncClientEndpointDiscovery, generatesTo("test-endpoint-discovery-async.java"));
     }
-
 }

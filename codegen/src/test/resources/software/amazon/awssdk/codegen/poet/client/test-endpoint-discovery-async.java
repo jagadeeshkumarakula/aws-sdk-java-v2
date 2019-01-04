@@ -10,12 +10,12 @@ import software.amazon.awssdk.annotations.Generated;
 import software.amazon.awssdk.annotations.SdkInternalApi;
 import software.amazon.awssdk.awscore.client.config.AwsClientOption;
 import software.amazon.awssdk.awscore.client.handler.AwsAsyncClientHandler;
-import software.amazon.awssdk.awscore.endpointdiscovery.EndpointDiscoveryRefreshCache;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.core.client.config.SdkClientConfiguration;
 import software.amazon.awssdk.core.client.config.SdkClientOption;
 import software.amazon.awssdk.core.client.handler.AsyncClientHandler;
 import software.amazon.awssdk.core.client.handler.ClientExecutionParams;
+import software.amazon.awssdk.core.endpointdiscovery.EndpointDiscoveryRefreshCache;
 import software.amazon.awssdk.core.http.HttpResponseHandler;
 import software.amazon.awssdk.protocols.json.AwsJsonProtocol;
 import software.amazon.awssdk.protocols.json.AwsJsonProtocolFactory;
@@ -146,7 +146,7 @@ final class DefaultEndpointDiscoveryTestAsyncClient implements EndpointDiscovery
                             .withOperationName("TestDiscoveryIdentifiersRequired")
                             .withMarshaller(new TestDiscoveryIdentifiersRequiredRequestMarshaller(protocolFactory))
                             .withResponseHandler(responseHandler).withErrorResponseHandler(errorResponseHandler)
-                            .withInput(testDiscoveryIdentifiersRequiredRequest));
+                            .discoveredEndpoint(cachedEndpoint).withInput(testDiscoveryIdentifiersRequiredRequest));
         } catch (Throwable t) {
             return CompletableFutureUtils.failedFuture(t);
         }
@@ -190,7 +190,7 @@ final class DefaultEndpointDiscoveryTestAsyncClient implements EndpointDiscovery
                     .withOperationName("TestDiscoveryOptional")
                     .withMarshaller(new TestDiscoveryOptionalRequestMarshaller(protocolFactory))
                     .withResponseHandler(responseHandler).withErrorResponseHandler(errorResponseHandler)
-                    .withInput(testDiscoveryOptionalRequest));
+                    .discoveredEndpoint(cachedEndpoint).withInput(testDiscoveryOptionalRequest));
         } catch (Throwable t) {
             return CompletableFutureUtils.failedFuture(t);
         }
@@ -234,7 +234,7 @@ final class DefaultEndpointDiscoveryTestAsyncClient implements EndpointDiscovery
                     .withOperationName("TestDiscoveryRequired")
                     .withMarshaller(new TestDiscoveryRequiredRequestMarshaller(protocolFactory))
                     .withResponseHandler(responseHandler).withErrorResponseHandler(errorResponseHandler)
-                    .withInput(testDiscoveryRequiredRequest));
+                    .discoveredEndpoint(cachedEndpoint).withInput(testDiscoveryRequiredRequest));
         } catch (Throwable t) {
             return CompletableFutureUtils.failedFuture(t);
         }
