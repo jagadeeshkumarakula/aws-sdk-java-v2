@@ -62,13 +62,41 @@ public final class EndpointDiscoveryRequest
         return new BuilderImpl(this);
     }
 
+    /**
+     * Builder interface for constructing a {@link EndpointDiscoveryRequest}.
+     */
     public interface Builder extends CopyableBuilder<Builder, EndpointDiscoveryRequest> {
+
+        /**
+         * The name of the operation being used in the customer's request.
+         *
+         * @param operationName The name of the operation.
+         * @return Returns a reference to this object so that method calls can be chained together.
+         */
         Builder operationName(String operationName);
 
+        /**
+         * Specifies a map containing a set identifiers mapped to the name of the field in the request.
+         *
+         * @param identifiers A map of identifiers for the request.
+         * @return Returns a reference to this object so that method calls can be chained together.
+         */
         Builder identifiers(Map<String, String> identifiers);
 
+        /**
+         * The cache key to use for a given cache entry.
+         *
+         * @param cacheKey A cache key.
+         * @return Returns a reference to this object so that method calls can be chained together.
+         */
         Builder cacheKey(String cacheKey);
 
+        /**
+         * Whether or not endpoint discovery is required for this request.
+         *
+         * @param required boolean specifying if endpoint discovery is required.
+         * @return Returns a reference to this object so that method calls can be chained together.
+         */
         Builder required(boolean required);
     }
 

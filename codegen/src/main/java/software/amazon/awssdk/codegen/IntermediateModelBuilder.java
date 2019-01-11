@@ -111,6 +111,7 @@ public class IntermediateModelBuilder {
         for (OperationModel o : operations.values()) {
             if (o.isEndpointOperation()) {
                 endpointOperation = o;
+                break;
             }
         }
 

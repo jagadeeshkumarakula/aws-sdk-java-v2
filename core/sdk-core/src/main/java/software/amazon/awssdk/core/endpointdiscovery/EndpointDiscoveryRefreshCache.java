@@ -71,7 +71,7 @@ public final class EndpointDiscoveryRefreshCache {
         if (endpoint.expirationTime().isBefore(Instant.now())) {
             cache.put(key, endpoint.toBuilder().expirationTime(Instant.now().plusSeconds(60)).build());
             String finalKey = key;
-            discoverEndpoint(null).thenApply(v -> cache.put(finalKey, v));
+            discoverEndpoint(request).thenApply(v -> cache.put(finalKey, v));
         }
 
         return endpoint.endpoint();

@@ -53,7 +53,6 @@ import software.amazon.awssdk.codegen.poet.PoetUtils;
 import software.amazon.awssdk.codegen.poet.eventstream.EventStreamUtils;
 import software.amazon.awssdk.core.SdkField;
 import software.amazon.awssdk.core.SdkPojo;
-import software.amazon.awssdk.core.endpointdiscovery.EndpointDiscoveryRequest;
 import software.amazon.awssdk.core.runtime.TypeConverter;
 import software.amazon.awssdk.utils.builder.ToCopyableBuilder;
 
@@ -332,9 +331,6 @@ public class AwsServiceModel implements ClassSpec {
                 methodSpecs.add(modelMethodOverrides.equalsMethod(shapeModel));
                 methodSpecs.add(modelMethodOverrides.toStringMethod(shapeModel));
                 methodSpecs.add(getValueForField());
-                if (shapeModel.getEndpointDiscovery() != null) {
-                    methodSpecs.add(endpointDiscoveryRequest());
-                }
                 break;
         }
 
@@ -370,16 +366,6 @@ public class AwsServiceModel implements ClassSpec {
         methodBuilder.endControlFlow();
 
         return methodBuilder.build();
-    }
-
-    private MethodSpec endpointDiscoveryRequest() {
-        return MethodSpec.methodBuilder("endpointDiscoveryRequest")
-                         .addModifiers(PUBLIC)
-                         .returns(EndpointDiscoveryRequest.class)
-                         .addStatement("return $T.builder().required($L).build()",
-                                       EndpointDiscoveryRequest.class,
-                                       shapeModel.getEndpointDiscovery().isRequired())
-                         .build();
     }
 
     private List<MethodSpec> memberGetters() {

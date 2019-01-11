@@ -16,6 +16,7 @@ import software.amazon.awssdk.core.client.config.SdkClientOption;
 import software.amazon.awssdk.core.client.handler.AsyncClientHandler;
 import software.amazon.awssdk.core.client.handler.ClientExecutionParams;
 import software.amazon.awssdk.core.endpointdiscovery.EndpointDiscoveryRefreshCache;
+import software.amazon.awssdk.core.endpointdiscovery.EndpointDiscoveryRequest;
 import software.amazon.awssdk.core.http.HttpResponseHandler;
 import software.amazon.awssdk.protocols.json.AwsJsonProtocol;
 import software.amazon.awssdk.protocols.json.AwsJsonProtocolFactory;
@@ -137,8 +138,8 @@ final class DefaultEndpointDiscoveryTestAsyncClient implements EndpointDiscovery
                     operationMetadata);
 
             String key = clientConfiguration.option(AwsClientOption.CREDENTIALS_PROVIDER).resolveCredentials().accessKeyId();
-            URI cachedEndpoint = endpointDiscoveryCache.get(key,
-                    testDiscoveryIdentifiersRequiredRequest.endpointDiscoveryRequest(),
+            EndpointDiscoveryRequest endpointDiscoveryRequest = EndpointDiscoveryRequest.builder().required(true).build();
+            URI cachedEndpoint = endpointDiscoveryCache.get(key, endpointDiscoveryRequest,
                     clientConfiguration.option(SdkClientOption.ENDPOINT));
 
             return clientHandler
@@ -183,7 +184,8 @@ final class DefaultEndpointDiscoveryTestAsyncClient implements EndpointDiscovery
                     operationMetadata);
 
             String key = clientConfiguration.option(AwsClientOption.CREDENTIALS_PROVIDER).resolveCredentials().accessKeyId();
-            URI cachedEndpoint = endpointDiscoveryCache.get(key, testDiscoveryOptionalRequest.endpointDiscoveryRequest(),
+            EndpointDiscoveryRequest endpointDiscoveryRequest = EndpointDiscoveryRequest.builder().required(false).build();
+            URI cachedEndpoint = endpointDiscoveryCache.get(key, endpointDiscoveryRequest,
                     clientConfiguration.option(SdkClientOption.ENDPOINT));
 
             return clientHandler.execute(new ClientExecutionParams<TestDiscoveryOptionalRequest, TestDiscoveryOptionalResponse>()
@@ -227,7 +229,8 @@ final class DefaultEndpointDiscoveryTestAsyncClient implements EndpointDiscovery
                     operationMetadata);
 
             String key = clientConfiguration.option(AwsClientOption.CREDENTIALS_PROVIDER).resolveCredentials().accessKeyId();
-            URI cachedEndpoint = endpointDiscoveryCache.get(key, testDiscoveryRequiredRequest.endpointDiscoveryRequest(),
+            EndpointDiscoveryRequest endpointDiscoveryRequest = EndpointDiscoveryRequest.builder().required(true).build();
+            URI cachedEndpoint = endpointDiscoveryCache.get(key, endpointDiscoveryRequest,
                     clientConfiguration.option(SdkClientOption.ENDPOINT));
 
             return clientHandler.execute(new ClientExecutionParams<TestDiscoveryRequiredRequest, TestDiscoveryRequiredResponse>()

@@ -50,6 +50,7 @@ import software.amazon.awssdk.core.client.config.SdkClientConfiguration;
 import software.amazon.awssdk.core.client.config.SdkClientOption;
 import software.amazon.awssdk.core.client.handler.SyncClientHandler;
 import software.amazon.awssdk.core.endpointdiscovery.EndpointDiscoveryRefreshCache;
+import software.amazon.awssdk.core.endpointdiscovery.EndpointDiscoveryRequest;
 
 //TODO Make SyncClientClass extend SyncClientInterface (similar to what we do in AsyncClientClass)
 public class SyncClientClass implements ClassSpec {
@@ -164,11 +165,13 @@ public class SyncClientClass implements ClassSpec {
         if (opModel.getEndpointDiscovery() != null) {
             method.addStatement("\n\nString key = clientConfiguration.option($T.CREDENTIALS_PROVIDER)." +
                                 "resolveCredentials().accessKeyId()", AwsClientOption.class);
-            method.addStatement("$T cachedEndpoint = $L.get(key, $L.endpointDiscoveryRequest(), " +
+            method.addStatement("EndpointDiscoveryRequest endpointDiscoveryRequest = $T.builder().required($L).build()",
+                                EndpointDiscoveryRequest.class,
+                                opModel.getInputShape().getEndpointDiscovery().isRequired());
+            method.addStatement("$T cachedEndpoint = $L.get(key, endpointDiscoveryRequest, " +
                                 "clientConfiguration.option($T.ENDPOINT))",
                                 URI.class,
                                 "endpointDiscoveryCache",
-                                opModel.getInputShape().getVariable().getVariableName(),
                                 SdkClientOption.class);
         }
 

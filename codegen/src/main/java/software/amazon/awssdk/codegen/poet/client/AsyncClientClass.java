@@ -60,6 +60,7 @@ import software.amazon.awssdk.core.client.config.SdkClientConfiguration;
 import software.amazon.awssdk.core.client.config.SdkClientOption;
 import software.amazon.awssdk.core.client.handler.AsyncClientHandler;
 import software.amazon.awssdk.core.endpointdiscovery.EndpointDiscoveryRefreshCache;
+import software.amazon.awssdk.core.endpointdiscovery.EndpointDiscoveryRequest;
 import software.amazon.awssdk.protocols.json.AwsJsonProtocolFactory;
 import software.amazon.awssdk.utils.CompletableFutureUtils;
 import software.amazon.awssdk.utils.FunctionalUtils;
@@ -192,11 +193,13 @@ public final class AsyncClientClass extends AsyncClientInterface {
         if (opModel.getEndpointDiscovery() != null) {
             builder.addStatement("\n\nString key = clientConfiguration.option($T.CREDENTIALS_PROVIDER).resolveCredentials()" +
                                  ".accessKeyId()", AwsClientOption.class);
-            builder.addStatement("$T cachedEndpoint = $L.get(key, $L.endpointDiscoveryRequest(), " +
+            builder.addStatement("EndpointDiscoveryRequest endpointDiscoveryRequest = $T.builder().required($L).build()",
+                                EndpointDiscoveryRequest.class,
+                                opModel.getInputShape().getEndpointDiscovery().isRequired());
+            builder.addStatement("$T cachedEndpoint = $L.get(key, endpointDiscoveryRequest, " +
                                  "clientConfiguration.option($T.ENDPOINT))",
                                  URI.class,
                                  "endpointDiscoveryCache",
-                                 opModel.getInputShape().getVariable().getVariableName(),
                                  SdkClientOption.class);
         }
 
